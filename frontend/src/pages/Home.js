@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { MatchDataContext } from '../components/MatchDataContext'
 import { Bars } from 'react-loader-spinner'
-import opgg from '../assets/opgg.jpeg'
+import { FaCheck } from 'react-icons/fa'
 
 const Home = () => {
   const { account, lastDravenWin, loading, error, averageKDA, totalSkillshotsDodged } = useContext(MatchDataContext)
@@ -25,7 +25,7 @@ const Home = () => {
   return (
     <div className='m-8 rounded-xl  container mx-auto p-4 bg-gray-900 text-white'>
       <header className='text-center py-8'>
-        <h1 className='text-5xl font-bold mb-4 text-red-600'>Welcome</h1>
+        <h1 className='text-5xl font-bold mb-4 text-red-500'>Welcome</h1>
         <p className='text-2xl mb-2'>u are visiting the best draven player in the world</p>
         <p className='text-xl mb-2'>and if ur looking at this u prob just got fkd</p>
         <p className='text-lg mb-2'>and i fkd ur sister</p>
@@ -42,9 +42,12 @@ const Home = () => {
         <div className='max-w-2xl w-full'>
           {lastDravenWin ? (
             <>
+              <h2 className='text-2xl font-semibold text-white mb-2 text-center'>Last Draven win:</h2>
               <div className='bg-white p-4 rounded-lg shadow-md w-full'>
-                <h2 className='text-2xl font-semibold text-gray-800 mb-2 text-center'>
-                  Last Draven Win {getTimeAgo(lastDravenWin.info.gameStartTimestamp)}
+                <h2 className='text-2xl font-semibold text-green-500 mb-2 text-center flex items-center justify-center'>
+                  <FaCheck className='text-green-500 mr-4' />
+
+                  {getTimeAgo(lastDravenWin.info.gameStartTimestamp)}
                 </h2>
                 <div className='flex items-center space-x-4'>
                   <img
@@ -83,13 +86,16 @@ const Home = () => {
                   </div>
                 </div>
               </div>
+              <div className='flex justify-center text-center items-center'>
+                <h1 className='text-2xl font-semibold text-white mb-2'>recent stats</h1>
+              </div>
               <div className='flex flex-cols space-x-6 '>
-                <div className='bg-white max-w-xl w:80 p-4 mt-4 rounded-lg shadow-md w-1/2'>
+                <div className='bg-white max-w-xl w:80 p-4 mt-0 rounded-lg shadow-md w-1/2'>
                   {' '}
-                  <h2 className='text-2xl font-semibold text-gray-800 mb-2 text-center'>Recent Average KDA</h2>
+                  <h2 className='text-2xl font-semibold text-gray-800 mb-2 text-center'>avg kda</h2>
                   <p className='text-3xl text-gray-800 text-center'>{averageKDA}</p>
                 </div>
-                <div className='bg-white max-w-xl w:80 p-4 mt-4 rounded-lg shadow-md w-1/2'>
+                <div className='bg-white max-w-xl w:80 p-4 mt-0 rounded-lg shadow-md w-1/2'>
                   {' '}
                   <h2 className='text-2xl font-semibold text-gray-800 mb-2 text-center'>skillshots dodged counter:</h2>
                   <p className='text-3xl text-gray-800 text-center'>{totalSkillshotsDodged}</p>

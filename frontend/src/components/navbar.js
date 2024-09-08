@@ -6,7 +6,7 @@ function Navbar() {
     <nav className='bg-gray-800 p-6 relative'>
       <div className='container mx-auto flex items-center justify-center'>
         {/* Left-aligned username */}
-        <div className='absolute left-12 text-white text-3xl font-bold'>
+        <div className='absolute left-12 text-red-500 text-3xl font-bold'>
           <Link to='/'>bestdraven.world</Link>
         </div>
 
