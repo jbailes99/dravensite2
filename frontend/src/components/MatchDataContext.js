@@ -13,11 +13,12 @@ export const MatchDataProvider = ({ children }) => {
   const GAME_NAME = 'razr708x54e3328'
   const TAG_LINE = '5451'
   const TARGET_CHAMPION_NAME = 'Draven'
+  const backendUrl = process.env.REACT_APP_BACKEND_SERVER_URI
 
   useEffect(() => {
     const fetchAccountDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/account/${GAME_NAME}/${TAG_LINE}`)
+        const response = await fetch(`${backendUrl}/api/account/${GAME_NAME}/${TAG_LINE}`)
         const data = await response.json()
         setAccount(data)
         setLoading(false)
@@ -35,14 +36,14 @@ export const MatchDataProvider = ({ children }) => {
         try {
           console.log('Fetching match history...')
 
-          const matchResponse = await fetch(`http://localhost:5000/api/matches/${account.puuid}`)
+          const matchResponse = await fetch(`${backendUrl}/api/matches/${account.puuid}`)
           const matchData = await matchResponse.json()
 
           console.log('Fetched match list:', matchData)
 
           const matchDetailsPromises = matchData.map(async matchId => {
             console.log(`Fetching details for match ID: ${matchId}`)
-            const detailResponse = await fetch(`http://localhost:5000/api/match/${matchId}`)
+            const detailResponse = await fetch(`${backendUrl}/api/match/${matchId}`)
             return await detailResponse.json()
           })
 
