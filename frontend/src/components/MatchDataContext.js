@@ -9,6 +9,7 @@ export const MatchDataProvider = ({ children }) => {
   const [lastDravenWin, setLastDravenWin] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [totalSkillshotsDodged, setTotalSkillShotsDodged] = useState(0)
 
   const GAME_NAME = 'razr708x54e3328'
   const TAG_LINE = '5451'
@@ -72,19 +73,33 @@ export const MatchDataProvider = ({ children }) => {
                 acc.totalKills += participant.kills
                 acc.totalDeaths += participant.deaths
                 acc.totalAssists += participant.assists
+
+                // Ensure the challenges object and skillshotsDodged exist before accessing
+                const skillShotsDodged = participant.challenges?.skillshotsDodged || 0
+                acc.totalSkillShotsDodged += skillShotsDodged // Sum skillshotsDodged
+
                 acc.matchCount += 1
               }
               return acc
             },
-            { totalKills: 0, totalDeaths: 0, totalAssists: 0, matchCount: 0 }
+            {
+              totalKills: 0,
+              totalDeaths: 0,
+              totalAssists: 0,
+              totalSkillShotsDodged: 0, // Initialize this to 0
+              matchCount: 0,
+            }
           )
 
           const avgKDA =
             totalStats.matchCount > 0 ? (totalStats.totalKills + totalStats.totalAssists) / totalStats.totalDeaths : 0
 
           setMatches(filteredMatches)
-          setAverageKDA(avgKDA.toFixed(2)) // Set average K/D/A ratio
+          setAverageKDA(avgKDA.toFixed(2))
           setLastDravenWin(lastWin || null)
+          setTotalSkillShotsDodged(totalStats.totalSkillShotsDodged) // Set the total skillshots dodged
+
+          console.log('skillshots:', totalSkillshotsDodged)
         } catch (error) {
           console.error('Error fetching match history:', error)
           setError('Failed to fetch match history')
@@ -96,7 +111,9 @@ export const MatchDataProvider = ({ children }) => {
   }, [account])
 
   return (
-    <MatchDataContext.Provider value={{ account, matches, lastDravenWin, averageKDA, loading, error }}>
+    <MatchDataContext.Provider
+      value={{ account, matches, lastDravenWin, averageKDA, totalSkillshotsDodged, loading, error }}
+    >
       {children}
     </MatchDataContext.Provider>
   )

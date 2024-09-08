@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import Profile from './pages/Profile'
 import './App.css'
 import Navbar from './components/navbar'
+import Footer from './components/footer'
 import { MatchDataProvider } from './components/MatchDataContext'
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/profile' element={<Profile />} />
         </Routes>
+        <Footer />
       </Router>
     </MatchDataProvider>
   )

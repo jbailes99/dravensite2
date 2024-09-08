@@ -3,11 +3,6 @@ import MatchCard from '../components/cards'
 import { Bars } from 'react-loader-spinner'
 import { MatchDataContext } from '../components/MatchDataContext'
 
-const RIOT_API_KEY = 'RGAPI-45b236fd-990f-4424-a07d-74231d22a87d' // Replace with your Riot API key
-const GAME_NAME = 'razr708x54e3328' // Replace with the game name you want to query
-const TAG_LINE = '5451' // Replace with the tag line you want to query
-const TARGET_CHAMPION_NAME = 'Draven' // Champion name to filter by
-
 const Profile = () => {
   const { account, lastDravenWin, loading, error, matches } = useContext(MatchDataContext)
 
@@ -53,6 +48,13 @@ const Profile = () => {
                       src='https://ddragon.leagueoflegends.com/cdn/13.18.1/img/champion/Draven.png'
                       alt='Draven'
                     />
+                    <div>
+                      {participant && (
+                        <p className='text-sm font-medium text-gray-800'>
+                          skillshots dodged: {participant.challenges.skillshotsDodged}
+                        </p>
+                      )}
+                    </div>
                     <div className='ml-24'>
                       {participant && (
                         <div className='mt-4'>
@@ -61,6 +63,7 @@ const Profile = () => {
                           </p>
                         </div>
                       )}
+
                       <p className='text-lg font-medium text-gray-600'>
                         {Math.floor(match.info.gameDuration / 60)} minutes
                       </p>
