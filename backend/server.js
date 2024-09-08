@@ -1,12 +1,18 @@
 const express = require('express')
 const fetch = require('node-fetch')
 const cors = require('cors')
+require('dotenv').config() // Load environment variables from .env file
 
 const app = express()
 const PORT = process.env.PORT || 5000
 
-app.use(cors())
-const apiKey = 'RGAPI-45b236fd-990f-4424-a07d-74231d22a87d'
+app.use(
+  cors({
+    origin: ['http://localhost:10000', 'https://bestdrave.world'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  })
+)
+const apiKey = process.env.API_KEY // Use environment variable
 
 app.get('/api/account/:gameName/:tagLine', async (req, res) => {
   const { gameName, tagLine } = req.params
