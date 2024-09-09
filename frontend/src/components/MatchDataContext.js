@@ -6,10 +6,14 @@ export const MatchDataProvider = ({ children }) => {
   const [account, setAccount] = useState(null)
   const [matches, setMatches] = useState([])
   const [averageKDA, setAverageKDA] = useState(0)
+  const [totalAssistPings, setTotalAssistPings] = useState(0)
+  const [totalAllInPings, setTotalAllInPings] = useState(0)
+
   const [lastDravenWin, setLastDravenWin] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [totalSkillshotsDodged, setTotalSkillShotsDodged] = useState(0)
+  const [averageKillParticipation, setAverageKillParticipation] = useState(0) // New state for average KP
 
   const GAME_NAME = 'razr708x54e3328'
   const TAG_LINE = '5451'
@@ -69,12 +73,17 @@ export const MatchDataProvider = ({ children }) => {
           const totalStats = filteredMatches.reduce(
             (acc, match) => {
               const participant = match.info.participants.find(p => p.puuid === account.puuid)
+              const team = match.info.teams.find(team => team.teamId === participant.teamId)
+
               if (participant) {
                 acc.totalKills += participant.kills
                 acc.totalDeaths += participant.deaths
                 acc.totalAssists += participant.assists
+                acc.totalKP += participant.challenges?.killParticipation || 0
+                acc.totalAssistPings += participant.assistMePings
+                acc.totalAllIn += participant.allInPings
 
-                // Ensure the challenges object and skillshotsDodged exist before accessing
+                // skillshot counter
                 const skillShotsDodged = participant.challenges?.skillshotsDodged || 0
                 acc.totalSkillShotsDodged += skillShotsDodged // Sum skillshotsDodged
 
@@ -87,6 +96,9 @@ export const MatchDataProvider = ({ children }) => {
               totalDeaths: 0,
               totalAssists: 0,
               totalSkillShotsDodged: 0, // Initialize this to 0
+              totalKP: 0,
+              totalAllIn: 0,
+              totalAssistPings: 0,
               matchCount: 0,
             }
           )
@@ -94,12 +106,18 @@ export const MatchDataProvider = ({ children }) => {
           const avgKDA =
             totalStats.matchCount > 0 ? (totalStats.totalKills + totalStats.totalAssists) / totalStats.totalDeaths : 0
 
+          const avgKillParticipation =
+            totalStats.matchCount > 0
+              ? (totalStats.totalKP / totalStats.matchCount) * 100 // Convert to percentage and round to the nearest whole number
+              : 0
+
           setMatches(filteredMatches)
           setAverageKDA(avgKDA.toFixed(2))
           setLastDravenWin(lastWin || null)
           setTotalSkillShotsDodged(totalStats.totalSkillShotsDodged) // Set the total skillshots dodged
-
-          console.log('skillshots:', totalSkillshotsDodged)
+          setAverageKillParticipation(avgKillParticipation.toFixed(2)) // Set average KP
+          setTotalAssistPings(totalStats.totalAssistPings)
+          setTotalAllInPings(totalStats.totalAllIn)
         } catch (error) {
           console.error('Error fetching match history:', error)
           setError('Failed to fetch match history')
@@ -112,7 +130,18 @@ export const MatchDataProvider = ({ children }) => {
 
   return (
     <MatchDataContext.Provider
-      value={{ account, matches, lastDravenWin, averageKDA, totalSkillshotsDodged, loading, error }}
+      value={{
+        account,
+        matches,
+        lastDravenWin,
+        averageKDA,
+        totalSkillshotsDodged,
+        loading,
+        error,
+        averageKillParticipation,
+        totalAssistPings,
+        totalAllInPings,
+      }}
     >
       {children}
     </MatchDataContext.Provider>

@@ -42,37 +42,40 @@ const Profile = () => {
 
               return (
                 <div key={match.metadata.matchId} className='bg-white p-4 rounded-lg shadow-md w-full max-w-3xl mb-4'>
-                  <div className='flex items-center space-x-4'>
+                  <div className='flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4'>
                     <img
                       className='h-24 w-24 rounded-full border-4 border-yellow-400'
                       src='https://ddragon.leagueoflegends.com/cdn/13.18.1/img/champion/Draven.png'
                       alt='Draven'
                     />
-                    <div>
+                    <div className='flex-1'>
                       {participant && (
-                        <p className='text-sm font-medium text-gray-800'>
-                          skillshots dodged: {participant.challenges.skillshotsDodged}
-                        </p>
+                        <>
+                          <p className='text-sm font-medium text-gray-800'>
+                            skillshots dodged: {participant.challenges.skillshotsDodged}
+                          </p>
+                          <p className='text-sm font-medium text-gray-800'>
+                            KP: {Math.round(participant.challenges.killParticipation * 100)}%
+                          </p>
+                        </>
                       )}
-                    </div>
-                    <div className='ml-24'>
-                      {participant && (
-                        <div className='mt-4'>
+                      <div className='mt-4'>
+                        {participant && (
                           <p className='text-2xl mb-2 font-medium text-gray-800'>
                             {participant.kills}/{participant.deaths}/{participant.assists}
                           </p>
-                        </div>
-                      )}
+                        )}
 
-                      <p className='text-lg font-medium text-gray-600'>
-                        {Math.floor(match.info.gameDuration / 60)} minutes
-                      </p>
+                        <p className='text-lg font-medium text-gray-600'>
+                          {Math.floor(match.info.gameDuration / 60)} minutes
+                        </p>
 
-                      <p className='text-sm font-semibold text-right text-gray-800 mb-2'>
-                        {new Date(match.info.gameStartTimestamp).toLocaleString()}
-                      </p>
+                        <p className='text-sm font-semibold text-right text-gray-800 mb-2'>
+                          {new Date(match.info.gameStartTimestamp).toLocaleString()}
+                        </p>
+                      </div>
                     </div>
-                    <div className='flex-1'>
+                    <div className='flex-1 flex items-center justify-center md:justify-end'>
                       <p className={`text-2xl font-medium ${team?.win ? 'text-green-500' : 'text-red-500'}`}>
                         {team?.win ? 'Victory' : 'Defeat'}
                       </p>
