@@ -6,12 +6,8 @@ require('dotenv').config() // Load environment variables from .env file
 const app = express()
 const PORT = process.env.PORT || 5000
 
-app.use(
-  cors({
-    origin: ['http://localhost:10000', 'https://bestdraven.world'],
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  })
-)
+app.use(cors())
+
 const apiKey = process.env.API_KEY // Use environment variable
 
 app.get('/api/account/:gameName/:tagLine', async (req, res) => {
