@@ -86,7 +86,7 @@ const Home = () => {
                   </div>
                 </div>
               </div>
-              {/* <div className='flex justify-center text-center items-center'>
+              <div className='flex justify-center text-center items-center'>
                 <h1 className='text-2xl font-semibold text-white mb-2'>recent stats</h1>
               </div>
               <div className='flex flex-cols space-x-6 '>
@@ -100,7 +100,7 @@ const Home = () => {
                   <h2 className='text-2xl font-semibold text-gray-800 mb-2 text-center'>skillshots dodged counter:</h2>
                   <p className='text-3xl text-gray-800 text-center'>{totalSkillshotsDodged}</p>
                 </div>
-              </div> */}
+              </div>
             </>
           ) : (
             <div className='flex text-center mt-2 justify-center'>
