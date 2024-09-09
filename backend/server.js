@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 5000
 
 app.use(
   cors({
-    origin: ['http://localhost:10000', 'https://bestdrave.world'],
+    origin: ['http://localhost:10000', 'https://bestdraven.world'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
   })
 )
