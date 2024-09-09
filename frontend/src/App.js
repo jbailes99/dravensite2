@@ -11,12 +11,16 @@ function App() {
   return (
     <MatchDataProvider>
       <Router>
-        <Navbar />
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/profile' element={<Profile />} />
-        </Routes>
-        <Footer />
+        <div className='flex flex-col min-h-screen'>
+          <Navbar />
+          <main className='flex-grow'>
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/profile' element={<Profile />} />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
       </Router>
     </MatchDataProvider>
   )

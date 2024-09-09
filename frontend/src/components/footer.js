@@ -1,13 +1,10 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import { FaFacebookF, FaTwitter, FaInstagram, FaGithub } from 'react-icons/fa'
 import { FaHeart } from 'react-icons/fa'
-
 import opgg from '../assets/opgg.jpeg'
 
 const Footer = () => {
   return (
-    <footer className='bg-gray-900 py-2 text-white relative'>
+    <footer className='bg-gray-900 py-4 text-white'>
       <div className='container mx-auto'>
         <div className='flex justify-center space-x-14 sm:mb-6'>
           <section className='text-center'>
@@ -28,9 +25,9 @@ const Footer = () => {
         </div>
 
         {/* Made with love */}
-        <div className='absolute  bottom-0 right-0 sm:p-4  text-gray-400 text-xxs'>
-          <p className='flex items-center'>
-            made with <FaHeart className='text-red-500 mx-1' /> by yak
+        <div className='text-center text-gray-400 text-xs mt-4'>
+          <p className='flex items-center justify-center'>
+            Made with <FaHeart className='text-red-500 mx-1' /> by yak
           </p>
         </div>
       </div>

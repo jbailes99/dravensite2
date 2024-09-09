@@ -108,32 +108,27 @@ const Home = () => {
             <div className='flex justify-center text-center items-center mt-4'>
               <h1 className='text-2xl font-semibold text-white mb-2'>recent stats</h1>
             </div>
-            <div className='flex flex-cols space-x-8 w-3/4'>
-              <div className='bg-white max-w-xl w:80 p-4 mt-0 rounded-lg shadow-md w-1/2'>
-                {' '}
-                <h2 className='text-2xl font-semibold text-gray-800 mb-2 text-center'>avg kda</h2>
+            <div className='flex flex-col md:flex-row space-y-8 md:space-y-0 md:space-x-8 w-full md:w-3/4'>
+              <div className='bg-white max-w-xl w-full md:w-80 p-4 rounded-lg shadow-md'>
+                <h2 className='text-2xl font-semibold text-gray-800 mb-2 text-center'>Avg KDA</h2>
                 <p className='text-3xl text-gray-800 text-center'>{averageKDA}</p>
               </div>
-              <div className='bg-white max-w-xl w:80 p-4 mt-0 rounded-lg shadow-md w-1/2'>
-                {' '}
-                <h2 className='text-2xl font-semibold text-gray-800 mb-2 text-center'>skillshots dodged counter:</h2>
+              <div className='bg-white max-w-xl w-full md:w-80 p-4 rounded-lg shadow-md'>
+                <h2 className='text-2xl font-semibold text-gray-800 mb-2 text-center'>Skillshots Dodged Counter:</h2>
                 <p className='text-3xl text-gray-800 text-center'>{totalSkillshotsDodged}</p>
               </div>
-              <div className='bg-white max-w-xl w:80 p-4 mt-0 rounded-lg shadow-md w-1/2'>
-                {' '}
-                <h2 className='text-2xl font-semibold text-gray-800 mb-2 text-center'>average kp:</h2>
+              <div className='bg-white max-w-xl w-full md:w-80 p-4 rounded-lg shadow-md'>
+                <h2 className='text-2xl font-semibold text-gray-800 mb-2 text-center'>Average KP:</h2>
                 <p className='text-3xl text-gray-800 text-center'>{Math.round(averageKillParticipation)}%</p>
               </div>
-              {/* <div className='bg-white max-w-xl w:80 p-4 mt-0 rounded-lg shadow-md w-1/2'>
-                {' '}
-                <h2 className='text-2xl font-semibold text-gray-800 mb-2 text-center'>
-                  how many times i pinged all in:
-                </h2>
-                <p className='text-3xl text-gray-800 text-center'>{totalAllInPings}</p>
-              </div> */}
-              <div className='bg-white max-w-xl w:80 p-4 mt-0 rounded-lg shadow-md w-1/2'>
-                {' '}
-                <h2 className='text-2xl font-semibold text-gray-800 mb-2 text-center'>assistance ping counter:</h2>
+              {/* <div className='bg-white max-w-xl w-full md:w-80 p-4 rounded-lg shadow-md'>
+    <h2 className='text-2xl font-semibold text-gray-800 mb-2 text-center'>
+      How Many Times I Pinged All In:
+    </h2>
+    <p className='text-3xl text-gray-800 text-center'>{totalAllInPings}</p>
+  </div> */}
+              <div className='bg-white max-w-xl w-full md:w-80 p-4 rounded-lg shadow-md'>
+                <h2 className='text-2xl font-semibold text-gray-800 mb-2 text-center'>Assistance Ping Counter:</h2>
                 <p className='text-3xl text-gray-800 text-center'>{totalAssistPings}</p>
               </div>
             </div>
