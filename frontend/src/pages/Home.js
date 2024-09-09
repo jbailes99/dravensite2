@@ -133,9 +133,7 @@ const Home = () => {
               </div> */}
               <div className='bg-white max-w-xl w:80 p-4 mt-0 rounded-lg shadow-md w-1/2'>
                 {' '}
-                <h2 className='text-2xl font-semibold text-gray-800 mb-2 text-center'>
-                  how many times i pinged assist:
-                </h2>
+                <h2 className='text-2xl font-semibold text-gray-800 mb-2 text-center'>assistance ping counter:</h2>
                 <p className='text-3xl text-gray-800 text-center'>{totalAssistPings}</p>
               </div>
             </div>
