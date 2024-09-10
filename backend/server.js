@@ -51,7 +51,7 @@ app.get('/api/match/:matchId', async (req, res) => {
   const { matchId } = req.params
   try {
     const response = await fetch(
-      `https://europe.api.riotgames.com/lol/match/v5/matches/${matchId}?api_key=${apiKey}
+      `https://euw1.api.riotgames.com/lol/match/v5/matches/${matchId}?api_key=${apiKey}
       `
     )
     if (response.ok) {

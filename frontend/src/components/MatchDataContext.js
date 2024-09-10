@@ -4,6 +4,7 @@ export const MatchDataContext = createContext()
 
 export const MatchDataProvider = ({ children }) => {
   const [account, setAccount] = useState(null)
+  const [accountRank, setAccountRank] = useState(null)
   const [matches, setMatches] = useState([])
   const [averageKDA, setAverageKDA] = useState(0)
   const [totalAssistPings, setTotalAssistPings] = useState(0)
@@ -42,11 +43,9 @@ export const MatchDataProvider = ({ children }) => {
       try {
         const response = await fetch(`${backendUrl}/api/league/${summonerId}`)
         const data = await response.json()
-        setAccount(data)
-        setLoading(false)
+        setAccountRank(data)
       } catch (error) {
         console.error('Error fetching data:', error)
-        setLoading(false)
       }
     }
 
@@ -159,6 +158,7 @@ export const MatchDataProvider = ({ children }) => {
         averageKillParticipation,
         totalAssistPings,
         totalAllInPings,
+        accountRank,
       }}
     >
       {children}

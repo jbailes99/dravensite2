@@ -15,6 +15,7 @@ const Home = () => {
     averageKillParticipation,
     totalAssistPings,
     totalAllInPings,
+    accountRank,
   } = useContext(MatchDataContext)
 
   function getTimeAgo(gameStartTimestamp) {
@@ -31,7 +32,9 @@ const Home = () => {
       return `${daysAgo} days and ${remainingHours} hours ago`
     }
   }
-
+  if (accountRank) {
+    console.log('acc rank:', accountRank.rank)
+  }
   return (
     <div className='m-8 sm:rounded-xl rounded-sm justify-center text-center  bg-gray-900 text-white'>
       <header className='text-center sm:py-8 '>
