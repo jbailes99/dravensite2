@@ -125,7 +125,7 @@ const Home = () => {
                   <h1 className='text-xl font-semibold sm:mr-0 mb-0 sm:mb-0'>GOAL RANK:</h1>
 
                   <img src={tierImages['CHALLENGER']} alt='Challenger Tier' className='ml-2 h-16 w-16' />
-                  <p className='ml-2-='>CHALLENGER</p>
+                  <p className='ml-2'>CHALLENGER</p>
                 </div>
               </div>
             </div>
