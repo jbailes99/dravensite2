@@ -70,7 +70,8 @@ app.get('/api/league/:summonerId', async (req, res) => {
   const { summonerId } = req.params
   try {
     const response = await fetch(
-      `https://euw1.api.riotgames.com/lol/match/v4/entries/by-summoner/${summonerId}?api_key=${apiKey}
+      `https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/${summonerId}?api_key=${apiKey}
+
       `
     )
     if (response.ok) {
