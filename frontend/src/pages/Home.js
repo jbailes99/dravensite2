@@ -3,6 +3,13 @@ import { Link } from 'react-router-dom'
 import { MatchDataContext } from '../components/MatchDataContext'
 import { Bars } from 'react-loader-spinner'
 import { FaCheck } from 'react-icons/fa'
+import Bronze from '../assets/Rank=Bronze.png'
+import Silver from '../assets/Rank=Silver.png'
+import Gold from '../assets/Rank=Gold.png'
+import Platinum from '../assets/Rank=Platinum.png'
+import Diamond from '../assets/Rank=Diamond.png'
+import Iron from '../assets/Rank=Iron.png'
+import Challenger from '../assets/Rank=Challenger.png'
 
 const Home = () => {
   const {
@@ -32,11 +39,51 @@ const Home = () => {
       return `${daysAgo} days and ${remainingHours} hours ago`
     }
   }
-  if (accountRank) {
-    console.log('acc rank:', accountRank.rank)
+
+  const tierImages = {
+    BRONZE: Bronze,
+    SILVER: Silver,
+    GOLD: Gold,
+    PLATINUM: Platinum,
+    DIAMOND: Diamond,
+    IRON: Iron,
+    CHALLENGER: Challenger,
   }
+
+  const imageUrl = tierImages[accountRank?.tier] || ''
+
+  const ranks = ['IRON', 'BRONZE', 'SILVER', 'GOLD', 'PLATINUM', 'DIAMOND', 'MASTER', 'CHALLENGER']
+
+  // Define LP thresholds for each division
+  const divisionLP = 100
+  const rankLPThresholds = {}
+
+  ranks.forEach((rank, index) => {
+    rankLPThresholds[rank] = index * 4 * divisionLP
+  })
+
+  const totalLPForProgress = rankLPThresholds['CHALLENGER'] - rankLPThresholds['IRON']
+  console.log(totalLPForProgress)
+
+  const romanToNumeric = {
+    I: 4,
+    II: 3,
+    III: 2,
+    IV: 1,
+  }
+  const currentRankNumeric = romanToNumeric[accountRank.rank] || 0
+
+  const currentRankLP = rankLPThresholds[accountRank.tier]
+    ? rankLPThresholds[accountRank.tier] + currentRankNumeric * divisionLP + accountRank.leaguePoints
+    : NaN
+  console.log(currentRankLP)
+
+  const currentProgressLP = currentRankLP - rankLPThresholds['IRON']
+  const progressPercentage = Math.min((currentProgressLP / totalLPForProgress) * 100, 100)
+  console.log(progressPercentage)
+
   return (
-    <div className='m-8 sm:rounded-xl rounded-sm justify-center text-center  bg-gray-900 text-white'>
+    <div className='sm:m-8 m-4 sm:rounded-xl rounded-xl sm:p-0 p-4 justify-center text-center  bg-gray-900 text-white'>
       <header className='text-center sm:py-8 '>
         <h1 className=' text-4xl sm:hidden block font-bold mb-8 text-yellow-600'>bestdraven.world</h1>
 
@@ -48,12 +95,12 @@ const Home = () => {
       </header>
       <div className='flex flex-row justify-center space-x-2 sm:space-x-3 md:space-x-6 lg:space-x-12  xl:space-x-24'>
         <img
-          className='w-[40%] mr-4 rounded-2xl'
+          className='sm:w-[40%] w-[90%]  mr-4 rounded-2xl'
           src='https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Draven_2.jpg'
           alt='Draven Gladiator'
         />
         <img
-          className='w-[40%] rounded-2xl'
+          className='w-[40%] sm:block hidden  rounded-2xl'
           src='https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Draven_1.jpg'
           alt='Draven Gladiator'
         />
@@ -62,6 +109,36 @@ const Home = () => {
       <div className='flex flex-col items-center p-6 rounded-lg'>
         {lastDravenWin ? (
           <>
+            <div className='flex space-x-24'>
+              <div>
+                <div className='flex items-center'>
+                  <h1 className='text-xl font-semibold'>CURRENT RANK:</h1>
+
+                  <img src={tierImages[accountRank.tier]} alt={`${accountRank.tier} Tier`} className='h-16 w-16' />
+                  <p className='ml-2'>
+                    {accountRank.tier} {accountRank.rank} {accountRank.leaguePoints} LP
+                  </p>
+                </div>
+              </div>
+              <div className=''>
+                <div className='flex items-center'>
+                  <h1 className='text-xl font-semibold'>GOAL RANK:</h1>
+
+                  <img src={tierImages['CHALLENGER']} alt='Challenger Tier' className='ml-2 h-16 w-16' />
+                  <p className='ml-2'>CHALLENGER</p>
+                </div>
+              </div>
+            </div>
+            <div className='relative w-full bg-gray-700 h-4 rounded-full mt-4 mb-4'>
+              <div className='bg-green-500 h-full rounded-full' style={{ width: `${progressPercentage}%` }}></div>
+              <div
+                className='absolute top-[-20px] right-0 text-white font-semibold'
+                style={{ right: `${100 - progressPercentage}%`, transform: 'translateX(50%)' }}
+              >
+                {Math.round(progressPercentage)}%
+              </div>
+            </div>
+
             <div className='max-w-2xl w-full'>
               <h2 className='text-2xl font-semibold text-white mb-2 text-center'>Last Draven win:</h2>
               <div className='bg-white p-4 rounded-lg shadow-md w-full'>
@@ -109,7 +186,7 @@ const Home = () => {
               </div>
             </div>
             <div className='flex justify-center text-center items-center mt-4'>
-              <h1 className='text-2xl font-semibold text-white mb-2'>recent stats</h1>
+              <h1 className='text-2xl font-semibold text-white mb-2'>Recent stats</h1>
             </div>
             <div className='flex flex-col md:flex-row space-y-8 md:space-y-0 md:space-x-8 w-full md:w-3/4'>
               <div className='bg-white max-w-xl w-full md:w-80 p-4 rounded-lg shadow-md'>
@@ -131,7 +208,7 @@ const Home = () => {
     <p className='text-3xl text-gray-800 text-center'>{totalAllInPings}</p>
   </div> */}
               <div className='bg-white max-w-xl w-full md:w-80 p-4 rounded-lg shadow-md'>
-                <h2 className='text-2xl font-semibold text-gray-800 mb-2 text-center'>ON THE WAY PINGS:</h2>
+                <h2 className='text-2xl font-semibold text-gray-800 mb-2 text-center'>ALL IN SPAM PINGS:</h2>
                 <p className='text-3xl text-gray-800 text-center'>{totalAllInPings}</p>
               </div>
             </div>

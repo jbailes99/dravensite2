@@ -4,7 +4,7 @@ export const MatchDataContext = createContext()
 
 export const MatchDataProvider = ({ children }) => {
   const [account, setAccount] = useState(null)
-  const [accountRank, setAccountRank] = useState(null)
+  const [accountRank, setAccountRank] = useState([])
   const [matches, setMatches] = useState([])
   const [averageKDA, setAverageKDA] = useState(0)
   const [totalAssistPings, setTotalAssistPings] = useState(0)
@@ -39,17 +39,19 @@ export const MatchDataProvider = ({ children }) => {
   }, [])
 
   useEffect(() => {
-    const fetchAccountDetails = async () => {
+    const fetchAccountRank = async () => {
       try {
         const response = await fetch(`${backendUrl}/api/league/${summonerId}`)
         const data = await response.json()
-        setAccountRank(data)
+
+        setAccountRank(data[0])
+        console.log('rank data:', accountRank.rank)
       } catch (error) {
         console.error('Error fetching data:', error)
       }
     }
 
-    fetchAccountDetails()
+    fetchAccountRank()
   }, [])
 
   useEffect(() => {
