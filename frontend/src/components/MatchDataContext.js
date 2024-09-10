@@ -15,6 +15,7 @@ export const MatchDataProvider = ({ children }) => {
   const [totalSkillshotsDodged, setTotalSkillShotsDodged] = useState(0)
   const [averageKillParticipation, setAverageKillParticipation] = useState(0) // New state for average KP
 
+  const summonerId = 'xQdioZU2fHV7Jl9ETOkU4-nYmK2yItcS8o676wOyMHaCl964JLXrPdAc_A'
   const GAME_NAME = 'razr708x54e3328'
   const TAG_LINE = '5451'
   const TARGET_CHAMPION_NAME = 'Draven'
@@ -35,6 +36,23 @@ export const MatchDataProvider = ({ children }) => {
 
     fetchAccountDetails()
   }, [])
+
+  useEffect(() => {
+    const fetchAccountDetails = async () => {
+      try {
+        const response = await fetch(`${backendUrl}/api/league/${summonerId}`)
+        const data = await response.json()
+        setAccount(data)
+        setLoading(false)
+      } catch (error) {
+        console.error('Error fetching data:', error)
+        setLoading(false)
+      }
+    }
+
+    fetchAccountDetails()
+  }, [])
+
   useEffect(() => {
     const fetchMatchHistory = async () => {
       if (account?.puuid) {
@@ -81,7 +99,7 @@ export const MatchDataProvider = ({ children }) => {
                 acc.totalAssists += participant.assists
                 acc.totalKP += participant.challenges?.killParticipation || 0
                 acc.totalAssistPings += participant.assistMePings
-                acc.totalAllIn += participant.allInPings
+                acc.totalAllIn += participant.onMyWayPings
 
                 // skillshot counter
                 const skillShotsDodged = participant.challenges?.skillshotsDodged || 0

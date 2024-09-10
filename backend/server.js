@@ -66,6 +66,25 @@ app.get('/api/match/:matchId', async (req, res) => {
   }
 })
 
+app.get('/api/league/:summonerId', async (req, res) => {
+  const { summonerId } = req.params
+  try {
+    const response = await fetch(
+      `https://europe.api.riotgames.com/lol/match/v4/entries/by-summoner/${summonerId}?api_key=${apiKey}
+      `
+    )
+    if (response.ok) {
+      const data = await response.json()
+      res.json(data)
+    } else {
+      res.status(response.status).json({ error: 'Failed to fetch league stats' })
+    }
+  } catch (error) {
+    console.error('Error fetching data:', error)
+    res.status(500).json({ error: 'Failed to fetch data' })
+  }
+})
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`)
 })

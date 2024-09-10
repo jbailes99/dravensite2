@@ -114,7 +114,7 @@ const Home = () => {
                 <p className='text-3xl text-gray-800 text-center'>{averageKDA}</p>
               </div>
               <div className='bg-white max-w-xl w-full md:w-80 p-4 rounded-lg shadow-md'>
-                <h2 className='text-2xl font-semibold text-gray-800 mb-2 text-center'>Skillshots Dodged Counter:</h2>
+                <h2 className='text-2xl font-semibold text-gray-800 mb-2 text-center'>Skillshots Dodged:</h2>
                 <p className='text-3xl text-gray-800 text-center'>{totalSkillshotsDodged}</p>
               </div>
               <div className='bg-white max-w-xl w-full md:w-80 p-4 rounded-lg shadow-md'>
@@ -128,8 +128,8 @@ const Home = () => {
     <p className='text-3xl text-gray-800 text-center'>{totalAllInPings}</p>
   </div> */}
               <div className='bg-white max-w-xl w-full md:w-80 p-4 rounded-lg shadow-md'>
-                <h2 className='text-2xl font-semibold text-gray-800 mb-2 text-center'>Assistance Ping Counter:</h2>
-                <p className='text-3xl text-gray-800 text-center'>{totalAssistPings}</p>
+                <h2 className='text-2xl font-semibold text-gray-800 mb-2 text-center'>ON THE WAY PINGS:</h2>
+                <p className='text-3xl text-gray-800 text-center'>{totalAllInPings}</p>
               </div>
             </div>
           </>
