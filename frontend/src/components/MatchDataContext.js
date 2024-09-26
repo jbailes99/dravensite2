@@ -4,7 +4,7 @@ export const MatchDataContext = createContext()
 
 export const MatchDataProvider = ({ children }) => {
   const [account, setAccount] = useState(null)
-  const [accountRank, setAccountRank] = useState([])
+  const [accountRank, setAccountRank] = useState({}) // Initialize as an empty object
   const [matches, setMatches] = useState([])
   const [averageKDA, setAverageKDA] = useState(0)
   const [totalAssistPings, setTotalAssistPings] = useState(0)

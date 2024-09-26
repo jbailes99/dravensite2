@@ -71,16 +71,19 @@ const Home = () => {
     III: 2,
     IV: 1,
   }
-  const currentRankNumeric = romanToNumeric[accountRank.rank] || 0
+  let progressPercentage = 0
 
-  const currentRankLP = rankLPThresholds[accountRank.tier]
-    ? rankLPThresholds[accountRank.tier] + currentRankNumeric * divisionLP + accountRank.leaguePoints
-    : NaN
-  console.log(currentRankLP)
+  if (accountRank) {
+    const currentRankNumeric = romanToNumeric[accountRank.rank] || 0
+    const currentRankLP = rankLPThresholds[accountRank.tier]
+      ? rankLPThresholds[accountRank.tier] + currentRankNumeric * divisionLP + accountRank.leaguePoints
+      : NaN
+    console.log(currentRankLP)
 
-  const currentProgressLP = currentRankLP - rankLPThresholds['IRON']
-  const progressPercentage = Math.min((currentProgressLP / totalLPForProgress) * 100, 100)
-  console.log(progressPercentage)
+    const currentProgressLP = currentRankLP - rankLPThresholds['IRON']
+    const progressPercentage = Math.min((currentProgressLP / totalLPForProgress) * 100, 100)
+    console.log(progressPercentage)
+  }
 
   return (
     <div className='sm:m-8 m-4 sm:rounded-xl rounded-xl sm:p-0 p-4 justify-center text-center  bg-gray-900 text-white'>
@@ -109,33 +112,54 @@ const Home = () => {
       <div className='flex flex-col items-center p-6 rounded-lg'>
         {lastDravenWin ? (
           <>
-            <div className='flex space-x-24 sm:mb-0 mb-4'>
-              <div>
-                <div className='flex flex-col sm:flex-row items-center'>
-                  <h1 className='text-xl font-semibold sm:mr-0 mb-0 sm:mb-0'>CURRENT RANK:</h1>
-                  <img src={tierImages[accountRank.tier]} alt={`${accountRank.tier} Tier`} className='h-16 w-16' />
-                  <p className=''>
-                    {accountRank.tier} {accountRank.rank} {accountRank.leaguePoints} LP
-                  </p>
+            {accountRank ? (
+              <div className='flex space-x-24 sm:mb-0 mb-4'>
+                <div>
+                  <div className='flex flex-col sm:flex-row items-center'>
+                    <h1 className='text-xl font-semibold sm:mr-0 mb-0 sm:mb-0'>CURRENT RANK:</h1>
+                    <img src={tierImages[accountRank.tier]} alt={`${accountRank.tier} Tier`} className='h-16 w-16' />
+                    <p className=''>
+                      {accountRank.tier} {accountRank.rank} {accountRank.leaguePoints} LP
+                    </p>
+                  </div>
+                </div>
+
+                <div>
+                  <div className='flex flex-col sm:flex-row items-center'>
+                    <h1 className='text-xl font-semibold sm:mr-0 mb-0 sm:mb-0'>GOAL RANK:</h1>
+                    <img src={tierImages['CHALLENGER']} alt='Challenger Tier' className='ml-2 h-16 w-16' />
+                    <p className='ml-2 text-xl'>CHALLENGER</p>
+                  </div>
                 </div>
               </div>
+            ) : (
+              <div className='flex space-x-24 sm:mb-0 mb-4'>
+                <div>
+                  <div className='flex flex-col sm:flex-row items-center'>
+                    <h1 className='text-xl font-semibold sm:mr-0 mb-0 sm:mb-0'>CURRENT RANK:</h1>
+                    <p className=' ml-2'> UNRANKED</p>
+                  </div>
+                </div>
 
-              <div>
-                <div className='flex flex-col sm:flex-row items-center'>
-                  <h1 className='text-xl font-semibold sm:mr-0 mb-0 sm:mb-0'>GOAL RANK:</h1>
-
-                  <img src={tierImages['CHALLENGER']} alt='Challenger Tier' className='ml-2 h-16 w-16' />
-                  <p className='ml-2'>CHALLENGER</p>
+                <div>
+                  <div className='flex flex-col sm:flex-row items-center'>
+                    <h1 className='text-xl font-semibold sm:mr-0 mb-0 sm:mb-0'>GOAL RANK:</h1>
+                    <p className='ml-2'>CHALLENGER</p>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
+
             <div className='relative w-full bg-gray-700 h-4 rounded-full mt-4 mb-4'>
-              <div className='bg-green-500 h-full rounded-full' style={{ width: `${progressPercentage}%` }}></div>
+              <div
+                className='bg-green-500 h-full rounded-full'
+                style={{ width: `${accountRank ? progressPercentage : 0}%` }}
+              ></div>
               <div
                 className='absolute top-[-24px] right-0 text-white font-semibold'
-                style={{ right: `${100 - progressPercentage}%`, transform: 'translateX(50%)' }}
+                style={{ right: `${100 - (accountRank ? progressPercentage : 0)}%`, transform: 'translateX(50%)' }}
               >
-                {Math.round(progressPercentage)}%
+                {accountRank ? Math.round(progressPercentage) : 0}%
               </div>
             </div>
 
