@@ -92,8 +92,7 @@ const Home = () => {
 
         <h1 className='sm:text-5xl text-3xl  font-bold mb-4 text-red-500'>razr708x54e3328</h1>
         <p className='sm:text-2xl text-2xl mb-2'>u are visiting the best draven player in the world</p>
-        <p className='sm:text-md text-sm mb-2'>and if ur looking at this u prob just got fkd</p>
-        <p className='sm:text-xs text-xxs mb-2'>and i fkd ur sister</p>
+
         {/* <p className='sm:text-5xl text-4xl mb-2 font-bold text-red-500'>razr708x54e3328</p> */}
       </header>
       <div className='flex flex-row justify-center space-x-2 sm:space-x-3 md:space-x-6 lg:space-x-12  xl:space-x-24'>
