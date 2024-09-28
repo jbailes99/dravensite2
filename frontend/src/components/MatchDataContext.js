@@ -19,14 +19,11 @@ export const MatchDataProvider = ({ children }) => {
   const [totalSkillshotsDodged, setTotalSkillShotsDodged] = useState(0)
   const [averageKillParticipation, setAverageKillParticipation] = useState(0) // New state for average KP
 
-  const summonerId = 'ddERbga-7B0qbSpQUo_Biz8KjK4eb4EnfrVZssaKMq7o6Ef5'
-  const puuid = 'Vi97LlByVxO0yexpdVJSW1ChAjUwd7r8CW1OcZnFSsyZMbJV88TRaovyWrWSP1uesGx6pTTXQhArAQ'
-
   //set game name, tagline, and target champion to track
 
   const GAME_NAME = 'pippy'
   const TAG_LINE = 'CN1'
-  const TARGET_CHAMPION_NAME = 'Draven'
+  const TARGET_CHAMPION_NAME = 'Jhin'
   const region = 'na'
 
   //create .env and set to your port on backend (localhost:5000 or something) or backend hosting URI
