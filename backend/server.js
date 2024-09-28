@@ -15,7 +15,7 @@ app.get('/api/account/:gameName/:tagLine', async (req, res) => {
 
   try {
     const response = await fetch(
-      `https://na1.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${gameName}/${tagLine}?api_key=${apiKey}`
+      `https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${gameName}/${tagLine}?api_key=${apiKey}`
     )
     if (response.ok) {
       const data = await response.json()

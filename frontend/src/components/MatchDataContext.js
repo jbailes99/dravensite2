@@ -17,7 +17,7 @@ export const MatchDataProvider = ({ children }) => {
   const [averageKillParticipation, setAverageKillParticipation] = useState(0) // New state for average KP
 
   const summonerId = 'Vi97LlByVxO0yexpdVJSW1ChAjUwd7r8CW1OcZnFSsyZMbJV88TRaovyWrWSP1uesGx6pTTXQhArAQ'
-  const GAME_NAME = 'DAGESTAN WARRIOR'
+  const GAME_NAME = 'ego'
   const TAG_LINE = 'NA1'
   const TARGET_CHAMPION_NAME = 'Vayne'
   const backendUrl = process.env.REACT_APP_BACKEND_SERVER_URI
@@ -39,9 +39,11 @@ export const MatchDataProvider = ({ children }) => {
   }, [])
 
   useEffect(() => {
+    console.log(account.puuid)
+
     const fetchAccountRank = async () => {
       try {
-        const response = await fetch(`${backendUrl}/api/league/${summonerId}`)
+        const response = await fetch(`${backendUrl}/api/league/${account.puuid}`)
         const data = await response.json()
 
         setAccountRank(data[0])
