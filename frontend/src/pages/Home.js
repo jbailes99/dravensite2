@@ -80,19 +80,16 @@ const Home = () => {
     III: 2,
     IV: 1,
   }
-  let progressPercentage = 0
 
-  if (accountRank) {
-    const currentRankNumeric = romanToNumeric[accountRank.rank] || 0
-    const currentRankLP = rankLPThresholds[accountRank.tier]
-      ? rankLPThresholds[accountRank.tier] + currentRankNumeric * divisionLP + accountRank.leaguePoints
-      : NaN
-    console.log(currentRankLP)
+  const currentRankNumeric = romanToNumeric[accountRank.rank] || 0
+  const currentRankLP = rankLPThresholds[accountRank.tier]
+    ? rankLPThresholds[accountRank.tier] + currentRankNumeric * divisionLP + accountRank.leaguePoints
+    : NaN
+  console.log(currentRankLP)
 
-    const currentProgressLP = currentRankLP - rankLPThresholds['IRON']
-    const progressPercentage = Math.min((currentProgressLP / totalLPForProgress) * 100, 100)
-    console.log(progressPercentage)
-  }
+  const currentProgressLP = currentRankLP - rankLPThresholds['IRON']
+  const progressPercentage = Math.min((currentProgressLP / totalLPForProgress) * 100, 100)
+  console.log(progressPercentage)
 
   return (
     <div className='sm:m-8 m-4 sm:rounded-xl rounded-xl sm:p-0 p-4 justify-center text-center  bg-gray-900 text-white'>
@@ -159,20 +156,25 @@ const Home = () => {
               </div>
             </div>
           )}
-
-          <div className='relative w-full bg-gray-700 h-4 rounded-full mt-4 mb-4'>
-            <div
-              className='bg-green-500 h-full rounded-full'
-              style={{ width: `${accountRank ? progressPercentage : 0}%` }}
-            ></div>
-            <div
-              className='absolute top-[-24px] right-0 text-white font-semibold'
-              style={{ right: `${100 - (accountRank ? progressPercentage : 0)}%`, transform: 'translateX(50%)' }}
-            >
-              {accountRank ? Math.round(progressPercentage) : 0}%
+          {accountRank.tier ? (
+            <div className='relative w-full bg-gray-700 h-4 rounded-full mt-4 mb-4'>
+              <div
+                className='bg-green-500 h-full rounded-full'
+                style={{ width: `${accountRank ? progressPercentage : 0}%` }}
+              ></div>
+              <div
+                className='absolute top-[-24px] right-0 text-white font-semibold'
+                style={{ right: `${100 - (accountRank ? progressPercentage : 0)}%`, transform: 'translateX(50%)' }}
+              >
+                {accountRank ? Math.round(progressPercentage) : 0}%
+              </div>
             </div>
-          </div>
-
+          ) : (
+            <div className='mt-2 mb-2'>
+              {' '}
+              <Bars color='white' height={18} width={18} />
+            </div>
+          )}
           <div className='max-w-2xl w-full'>
             <h2 className='text-2xl font-semibold text-white mb-2 text-center'>Last {TARGET_CHAMPION_NAME} win:</h2>
             <div className='bg-white p-4 rounded-lg shadow-md w-full'>
