@@ -21,7 +21,7 @@ const Footer = () => {
 
         {/* Copyright */}
         <div className='text-center sm:mt-6 mb-2'>
-          <p className='text-gray-400'>© 2024 Best Draven Player. All rights reserved.</p>
+          <p className='text-gray-400'>© 2024 Best League Player. All rights reserved.</p>
         </div>
 
         {/* Made with love */}

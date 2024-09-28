@@ -46,6 +46,23 @@ app.get('/api/matches/:puuid', async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch data' })
   }
 })
+app.get('/api/account/id/:puuid', async (req, res) => {
+  const { puuid } = req.params
+  try {
+    const response = await fetch(
+      `https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/${puuid}?api_key=${apiKey}`
+    )
+    if (response.ok) {
+      const data = await response.json()
+      res.json(data)
+    } else {
+      res.status(response.status).json({ error: 'Failed to fetch accountId' })
+    }
+  } catch (error) {
+    console.error('Error fetching data:', error)
+    res.status(500).json({ error: 'Failed to fetch data' })
+  }
+})
 
 app.get('/api/match/:matchId', async (req, res) => {
   const { matchId } = req.params

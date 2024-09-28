@@ -4,6 +4,7 @@ export const MatchDataContext = createContext()
 
 export const MatchDataProvider = ({ children }) => {
   const [account, setAccount] = useState(null)
+  const [accountId, setAccountId] = useState(null)
   const [accountRank, setAccountRank] = useState({}) // Initialize as an empty object
   const [matches, setMatches] = useState([])
   const [averageKDA, setAverageKDA] = useState(0)
@@ -13,13 +14,22 @@ export const MatchDataProvider = ({ children }) => {
   const [lastDravenWin, setLastDravenWin] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [error429, setError429] = useState(null)
+
   const [totalSkillshotsDodged, setTotalSkillShotsDodged] = useState(0)
   const [averageKillParticipation, setAverageKillParticipation] = useState(0) // New state for average KP
 
-  const summonerId = 'Vi97LlByVxO0yexpdVJSW1ChAjUwd7r8CW1OcZnFSsyZMbJV88TRaovyWrWSP1uesGx6pTTXQhArAQ'
-  const GAME_NAME = 'ego'
+  const summonerId = 'ddERbga-7B0qbSpQUo_Biz8KjK4eb4EnfrVZssaKMq7o6Ef5'
+  const puuid = 'Vi97LlByVxO0yexpdVJSW1ChAjUwd7r8CW1OcZnFSsyZMbJV88TRaovyWrWSP1uesGx6pTTXQhArAQ'
+
+  //set game name, tagline, and target champion to track
+
+  const GAME_NAME = 'DAGESTAN WARRIOR'
   const TAG_LINE = 'NA1'
   const TARGET_CHAMPION_NAME = 'Vayne'
+
+  //create .env and set to your port on backend (localhost:5000 or something) or backend hosting URI
+  // like this " REACT_APP_BACKEND_SERVER_URI = http://localhost:5000" in .env file
   const backendUrl = process.env.REACT_APP_BACKEND_SERVER_URI
 
   useEffect(() => {
@@ -27,11 +37,13 @@ export const MatchDataProvider = ({ children }) => {
       try {
         const response = await fetch(`${backendUrl}/api/account/${GAME_NAME}/${TAG_LINE}`)
         const data = await response.json()
+        if (response.status === 429) {
+          setError429(429) // Set the error to 429 for "Too Many Requests"
+          console.log('ERROR:', error429)
+        }
         setAccount(data)
-        setLoading(false)
       } catch (error) {
         console.error('Error fetching data:', error)
-        setLoading(false)
       }
     }
 
@@ -39,11 +51,24 @@ export const MatchDataProvider = ({ children }) => {
   }, [])
 
   useEffect(() => {
-    console.log(account.puuid)
+    const fetchAccountId = async () => {
+      try {
+        const response = await fetch(`${backendUrl}/api/account/id/${account.puuid}`)
+        const data = await response.json()
+        console.log(data)
+        setAccountId(data)
+      } catch (error) {
+        console.error('Error fetching data:', error)
+      }
+    }
 
+    fetchAccountId()
+  }, [])
+
+  useEffect(() => {
     const fetchAccountRank = async () => {
       try {
-        const response = await fetch(`${backendUrl}/api/league/${account.puuid}`)
+        const response = await fetch(`${backendUrl}/api/league/${accountId.id}`)
         const data = await response.json()
 
         setAccountRank(data[0])
@@ -52,7 +77,6 @@ export const MatchDataProvider = ({ children }) => {
         console.error('Error fetching data:', error)
       }
     }
-
     fetchAccountRank()
   }, [])
 
@@ -139,6 +163,7 @@ export const MatchDataProvider = ({ children }) => {
           setAverageKillParticipation(avgKillParticipation.toFixed(2)) // Set average KP
           setTotalAssistPings(totalStats.totalAssistPings)
           setTotalAllInPings(totalStats.totalAllIn)
+          setLoading(false)
         } catch (error) {
           console.error('Error fetching match history:', error)
           setError('Failed to fetch match history')
@@ -152,6 +177,10 @@ export const MatchDataProvider = ({ children }) => {
   return (
     <MatchDataContext.Provider
       value={{
+        GAME_NAME,
+        TAG_LINE,
+        TARGET_CHAMPION_NAME,
+        error429,
         account,
         matches,
         lastDravenWin,

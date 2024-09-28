@@ -4,7 +4,7 @@ import { Bars } from 'react-loader-spinner'
 import { MatchDataContext } from '../components/MatchDataContext'
 
 const Profile = () => {
-  const { account, lastDravenWin, loading, error, matches } = useContext(MatchDataContext)
+  const { account, TARGET_CHAMPION_NAME, lastDravenWin, loading, error, matches } = useContext(MatchDataContext)
 
   function getTimeAgo(gameStartTimestamp) {
     const currentTime = Date.now()
@@ -28,14 +28,14 @@ const Profile = () => {
           <p>Loading...</p>
         ) : matches.length === 0 ? (
           <div className=''>
-            <h2 className='text-4xl mt-4 font-bold text-white'>Draven Match History</h2>
+            <h2 className='text-4xl mt-4 font-bold text-white'>{TARGET_CHAMPION_NAME} Match History</h2>
             <div className='flex flex-col items-center justify-center h-screen'>
               <Bars color='#2d3748' height={80} width={80} />
             </div>
           </div>
         ) : (
           <div className='flex flex-col items-center p-6 rounded-lg'>
-            <h2 className='text-3xl font-semibold text-white mb-4'>Recent Draven Games</h2>
+            <h2 className='text-3xl font-semibold text-white mb-4'>Recent {TARGET_CHAMPION_NAME} Games</h2>
             {matches.map(match => {
               const participant = match.info.participants.find(participant => participant.puuid === account.puuid)
               const team = match.info.teams.find(team => team.teamId === participant?.teamId)
@@ -48,7 +48,7 @@ const Profile = () => {
                   <div className='flex flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 md:space-x-6'>
                     <img
                       className='h-24 w-24 rounded-full border-4 border-yellow-400 my-auto '
-                      src='https://ddragon.leagueoflegends.com/cdn/13.18.1/img/champion/Draven.png'
+                      src={`https://ddragon.leagueoflegends.com/cdn/13.18.1/img/champion/${TARGET_CHAMPION_NAME}.png`}
                       alt='Draven'
                     />
                     <div className='flex-1'>

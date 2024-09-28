@@ -1,13 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
+import { MatchDataContext } from '../components/MatchDataContext'
 
 function Navbar() {
+  const { TARGET_CHAMPION_NAME } = useContext(MatchDataContext)
   return (
     <nav className='bg-gray-900 sm:p-6 p-3 relative shadow-xl'>
       <div className='container mx-auto flex items-center justify-center'>
         {/* Left-aligned username */}
-        <div className='absolute left-12 hidden sm:block text-red-500 text-3xl font-bold'>
-          <Link to='/'>bestdraven.world</Link>
+        <div className='absolute left-12 hidden sm:block text-red-500 text-3xl font-bold lowercase'>
+          <Link to='/'>best{TARGET_CHAMPION_NAME}.world</Link>
         </div>
 
         {/* Centered links */}
