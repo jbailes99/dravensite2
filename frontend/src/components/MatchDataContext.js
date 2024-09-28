@@ -24,9 +24,9 @@ export const MatchDataProvider = ({ children }) => {
 
   //set game name, tagline, and target champion to track
 
-  const GAME_NAME = 'elbmuTq'
-  const TAG_LINE = 'FUN'
-  const TARGET_CHAMPION_NAME = 'Vayne'
+  const GAME_NAME = 'pippy'
+  const TAG_LINE = 'CN1'
+  const TARGET_CHAMPION_NAME = 'Draven'
   const region = 'na'
 
   //create .env and set to your port on backend (localhost:5000 or something) or backend hosting URI
