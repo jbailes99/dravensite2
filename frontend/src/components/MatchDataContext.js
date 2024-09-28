@@ -16,10 +16,10 @@ export const MatchDataProvider = ({ children }) => {
   const [totalSkillshotsDodged, setTotalSkillShotsDodged] = useState(0)
   const [averageKillParticipation, setAverageKillParticipation] = useState(0) // New state for average KP
 
-  const summonerId = 'xQdioZU2fHV7Jl9ETOkU4-nYmK2yItcS8o676wOyMHaCl964JLXrPdAc_A'
-  const GAME_NAME = 'razr708x54e3328'
-  const TAG_LINE = '5451'
-  const TARGET_CHAMPION_NAME = 'Draven'
+  const summonerId = 'Vi97LlByVxO0yexpdVJSW1ChAjUwd7r8CW1OcZnFSsyZMbJV88TRaovyWrWSP1uesGx6pTTXQhArAQ'
+  const GAME_NAME = 'DAGESTAN WARRIOR'
+  const TAG_LINE = 'NA1'
+  const TARGET_CHAMPION_NAME = 'Vayne'
   const backendUrl = process.env.REACT_APP_BACKEND_SERVER_URI
 
   useEffect(() => {
