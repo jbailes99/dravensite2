@@ -13,6 +13,8 @@ export const MatchDataProvider = ({ children }) => {
 
   const [lastDravenWin, setLastDravenWin] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [loadingProgressBar, setLoadingProgressBar] = useState(true)
+  const [filtered, setFiltered] = useState(0)
   const [error, setError] = useState(null)
   const [error429, setError429] = useState(null)
 
@@ -21,9 +23,9 @@ export const MatchDataProvider = ({ children }) => {
 
   //set game name, tagline, and target champion to track
 
-  const GAME_NAME = 'pippy'
-  const TAG_LINE = 'CN1'
-  const TARGET_CHAMPION_NAME = 'Jhin'
+  const GAME_NAME = 'DAGESTAN WARRIOR'
+  const TAG_LINE = 'NA1'
+  const TARGET_CHAMPION_NAME = 'Vayne'
   const region = 'na'
 
   //create .env and set to your port on backend (localhost:5000 or something) or backend hosting URI
@@ -75,6 +77,7 @@ export const MatchDataProvider = ({ children }) => {
           console.log('Rank data:', data)
 
           setAccountRank(data[0]) // Set the first rank data
+          setLoadingProgressBar(false)
         }
       } catch (error) {
         console.error('Error fetching account rank:', error)
@@ -85,7 +88,7 @@ export const MatchDataProvider = ({ children }) => {
   }, [accountId]) // This effect now depends on `accountId`
 
   // Separate useEffect to log accountRank after it's been updated
-
+  const filteredMatches = 0
   useEffect(() => {
     const fetchMatchHistory = async () => {
       if (account?.puuid) {
@@ -112,6 +115,10 @@ export const MatchDataProvider = ({ children }) => {
               participant => participant.puuid === account.puuid && participant.championName === TARGET_CHAMPION_NAME
             )
           )
+
+          setFiltered(filteredMatches)
+
+          console.log('filtered matches for the champ:', filteredMatches)
 
           const sortedMatches = filteredMatches.sort((a, b) => b.info.gameStartTimestamp - a.info.gameStartTimestamp)
           const lastWin = sortedMatches.find(match => {
@@ -162,6 +169,9 @@ export const MatchDataProvider = ({ children }) => {
               ? (totalStats.totalKP / totalStats.matchCount) * 100 // Convert to percentage and round to the nearest whole number
               : 0
 
+          console.log('avg KDA:', avgKDA)
+          console.log('avgkp:', avgKillParticipation)
+
           setMatches(filteredMatches)
           setAverageKDA(avgKDA.toFixed(2))
           setLastDravenWin(lastWin || null)
@@ -184,6 +194,7 @@ export const MatchDataProvider = ({ children }) => {
     <MatchDataContext.Provider
       value={{
         GAME_NAME,
+        filtered,
         region,
         TAG_LINE,
         TARGET_CHAMPION_NAME,
@@ -194,6 +205,7 @@ export const MatchDataProvider = ({ children }) => {
         averageKDA,
         totalSkillshotsDodged,
         loading,
+        loadingProgressBar,
         error,
         averageKillParticipation,
         totalAssistPings,

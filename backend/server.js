@@ -46,7 +46,7 @@ app.get('/api/matches/:puuid', async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch data' })
   }
 })
-app.get('/api/account/id/:puuid', async (req, res) => {
+app.get('/api/poop/id/:puuid', async (req, res) => {
   const { puuid } = req.params
   try {
     const response = await fetch(
@@ -83,11 +83,11 @@ app.get('/api/match/:matchId', async (req, res) => {
   }
 })
 
-app.get('/api/league/:summonerId', async (req, res) => {
-  const { summonerId } = req.params
+app.get('/api/league/:id', async (req, res) => {
+  const { id } = req.params
   try {
     const response = await fetch(
-      `https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${summonerId}?api_key=${apiKey}
+      `https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${id}?api_key=${apiKey}
 
       `
     )
