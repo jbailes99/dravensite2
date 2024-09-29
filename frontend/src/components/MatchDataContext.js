@@ -23,8 +23,8 @@ export const MatchDataProvider = ({ children }) => {
 
   //set game name, tagline, and target champion to track
 
-  const GAME_NAME = 'views'
-  const TAG_LINE = '2016'
+  const GAME_NAME = 'TTV Karlton'
+  const TAG_LINE = 'BWC'
   const TARGET_CHAMPION_NAME = 'Draven'
   const region = 'na'
 
