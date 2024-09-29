@@ -88,9 +88,11 @@ const Home = () => {
     console.log(currentRankLP)
 
     const currentProgressLP = currentRankLP - rankLPThresholds['IRON']
-    const progressPercentage = Math.min((currentProgressLP / totalLPForProgress) * 100, 100)
+    progressPercentage = Math.min((currentProgressLP / totalLPForProgress) * 100, 100)
     console.log(accountRank)
   }
+
+  console.log('progress:', progressPercentage)
 
   return (
     <div className='sm:m-8 m-4 sm:rounded-xl rounded-xl sm:p-0 p-4 justify-center text-center  bg-gray-900 text-white'>
