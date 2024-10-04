@@ -82,12 +82,17 @@ const Home = () => {
   let progressPercentage = 0
   if (accountRank) {
     const currentRankNumeric = romanToNumeric[accountRank.rank] || 0
-    const currentRankLP = rankLPThresholds[accountRank.tier]
-      ? rankLPThresholds[accountRank.tier] + currentRankNumeric * divisionLP + accountRank.leaguePoints
-      : NaN
+    let currentRankLP = 0
+
+    if (accountRank.tier === 'IRON') {
+      currentRankLP = (4 - currentRankNumeric) * divisionLP + accountRank.leaguePoints
+    } else {
+      currentRankLP = rankLPThresholds[accountRank.tier] + currentRankNumeric * divisionLP + accountRank.leaguePoints
+    }
+
     console.log(currentRankLP)
 
-    const currentProgressLP = currentRankLP - rankLPThresholds['IRON']
+    const currentProgressLP = currentRankLP
     progressPercentage = Math.min((currentProgressLP / totalLPForProgress) * 100, 100)
     console.log(accountRank)
   }
