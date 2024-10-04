@@ -6,12 +6,7 @@ require('dotenv').config() // Load environment variables from .env file
 const app = express()
 const PORT = process.env.PORT || 5000
 
-const cors = require('cors')
-app.use(
-  cors({
-    origin: 'https://bestdraven.world', // or '*', but it's safer to be more specific
-  })
-)
+app.use(cors())
 
 //europe, americas, asia
 const v5region = 'europe'
