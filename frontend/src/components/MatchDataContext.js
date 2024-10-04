@@ -23,10 +23,10 @@ export const MatchDataProvider = ({ children }) => {
 
   //set game name, tagline, and target champion to track
 
-  const GAME_NAME = 'Teshhynal'
-  const TAG_LINE = 'NA1'
+  const GAME_NAME = 'myspacemark'
+  const TAG_LINE = '423'
   const TARGET_CHAMPION_NAME = 'Draven'
-  const region = 'na'
+  const region = 'euw'
 
   //create .env and set to your port on backend (localhost:5000 or something) or backend hosting URI
   // like this " REACT_APP_BACKEND_SERVER_URI = http://localhost:5000" in .env file
